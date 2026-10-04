@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import { invitation } from "../config/invitation";
 import { Lotus } from "./decor";
 
 const SECTIONS = [
@@ -8,7 +9,7 @@ const SECTIONS = [
   { id: "details", label: "Details" },
   { id: "gallery", label: "Gallery" },
   { id: "venue", label: "Venue" },
-];
+].filter((s) => s.id !== "gallery" || invitation.gallery.length > 0);
 
 /** A quiet dot rail on desktop, a single lotus button on mobile. No navbar. */
 export function FloatingNav() {

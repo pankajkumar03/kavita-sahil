@@ -68,15 +68,9 @@ export const invitation = {
     ambientPetals: 8, // petals gently drifting while reading (0 = only the showers)
   },
 
-  /** 6–12 photos. Alt text is read aloud by screen readers — describe the photo. */
-  gallery: [
-    { src: "/images/gallery-1.jpg", alt: "Mehendi detail on the bride's hands" },
-    { src: "/images/gallery-2.jpg", alt: "The families together at the haveli" },
-    { src: "/images/gallery-3.jpg", alt: "Floral decorations for the ceremony" },
-    { src: "/images/gallery-4.jpg", alt: "Traditional jewellery for the engagement" },
-    { src: "/images/gallery-5.jpg", alt: "The engagement rings on a brass thali" },
-    { src: "/images/gallery-6.jpg", alt: "Evening lights at the venue" },
-  ] as GalleryImage[],
+  /** Optional extra photos. Empty = the gallery section (and its menu entry) is hidden.
+   *  Add e.g. { src: "/images/gallery-1.jpg", alt: "Describe the photo" } to bring it back. */
+  gallery: [] as GalleryImage[],
 
   site: {
     /** The public address once deployed, e.g. "https://our-engagement.netlify.app".

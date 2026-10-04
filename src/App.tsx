@@ -10,6 +10,7 @@ import { Gallery } from "./components/Gallery";
 import { HeroSection } from "./components/HeroSection";
 import { InvitationCover } from "./components/InvitationCover";
 import { MusicPlayer } from "./components/MusicPlayer";
+import { PetalShower, burstPetals } from "./components/PetalShower";
 import { ToastProvider } from "./components/Toast";
 import { VenueSection } from "./components/VenueSection";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -41,6 +42,7 @@ export default function App() {
     // The tap on "Open Invitation" is the user gesture browsers require before sound can play
     const { music } = invitation;
     if (music.enabled && music.autoplayOnOpen && music.url.trim()) void playMusic(music.url);
+    burstPetals(90);
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
     setPhase("opening");
     window.setTimeout(
@@ -54,6 +56,7 @@ export default function App() {
 
   return (
     <ToastProvider>
+      <PetalShower active={phase !== "cover"} />
       {phase !== "open" && <InvitationCover leaving={phase === "opening"} onOpen={openInvitation} />}
 
       <div ref={pageRef} aria-hidden={phase === "cover" ? true : undefined}>

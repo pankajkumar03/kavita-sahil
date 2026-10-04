@@ -63,6 +63,11 @@ export const invitation = {
     autoplayOnOpen: true,
   },
 
+  effects: {
+    petals: true, // falling flower petals (a shower on opening and at the closing blessing)
+    ambientPetals: 8, // petals gently drifting while reading (0 = only the showers)
+  },
+
   /** 6–12 photos. Alt text is read aloud by screen readers — describe the photo. */
   gallery: [
     { src: "/images/gallery-1.jpg", alt: "Mehendi detail on the bride's hands" },

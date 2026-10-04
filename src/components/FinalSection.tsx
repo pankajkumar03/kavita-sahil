@@ -1,12 +1,33 @@
+import { useEffect, useRef } from "react";
 import { invitation } from "../config/invitation";
+import { burstPetals } from "./PetalShower";
 import { Diya, FloralCorner, GoldDivider, HaveliSkyline } from "./decor";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 
 export function FinalSection() {
   const { bride, groom } = invitation;
+  const ref = useRef<HTMLElement>(null);
+
+  // A last shower of petals as the guest reaches the closing blessing (once)
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          burstPetals(50);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.45 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <section className="section final" aria-labelledby="final-title">
+    <section ref={ref} className="section final" aria-labelledby="final-title">
       <FloralCorner corner="top-left" className="final__floral" />
       <FloralCorner corner="top-right" className="final__floral" />
       <HaveliSkyline className="final__skyline" />

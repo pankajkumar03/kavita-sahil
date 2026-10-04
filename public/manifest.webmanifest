@@ -1,0 +1,10 @@
+{
+  "name": "Kavita & Sahil — Engagement Invitation",
+  "short_name": "Invitation",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFF8ED",
+  "theme_color": "#FFF8ED",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

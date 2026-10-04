@@ -28,7 +28,11 @@ Missing photos show a soft placeholder, so you can add them gradually.
 npm install
 npm run dev        # http://localhost:5180
 npm run build      # production files in dist/
+npm run build:single   # ONE shareable file: share/Kavita-Sahil-Engagement-Invitation.html
 ```
+
+`build:single` embeds everything (code, styles, the song, any photos in `public/images`) into a
+single HTML file you can send or open directly. Re-run it after changing details or adding photos.
 
 ## 3. Deploy
 

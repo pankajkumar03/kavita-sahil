@@ -11,6 +11,7 @@ import { useToast } from "./Toast";
  * run, the button is shown and the audio element reports any real error.
  */
 async function isAudioAvailable(url: string): Promise<boolean> {
+  if (url.startsWith("data:")) return true; // embedded in the single-file build
   try {
     const res = await fetch(asset(url), { method: "HEAD", cache: "no-store" });
     const type = res.headers.get("content-type") || "";

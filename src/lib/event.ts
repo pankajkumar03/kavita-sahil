@@ -41,4 +41,7 @@ export function getDisplayTime() {
   return `${String(hour12).padStart(2, "0")}:${String(min || 0).padStart(2, "0")} ${suffix}`;
 }
 
-export const fullAddress = [event.venue, event.address, event.city].filter(Boolean).join(", ");
+/** "Fazilka, Punjab – 152123" (PIN code only when set) */
+export const cityLine = [event.city, event.pincode].filter(Boolean).join(" – ");
+
+export const fullAddress = [event.venue, event.address, event.city, event.pincode].filter(Boolean).join(", ");

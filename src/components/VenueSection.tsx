@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ExternalLink, MapPin, Navigation } from "lucide-react";
 import { invitation } from "../config/invitation";
+import { cityLine } from "../lib/event";
 import { directionsUrl, mapEmbedUrl, mapsSearchUrl } from "../lib/links";
 import { C } from "./decor/palette";
 import { FloralCorner, Lotus } from "./decor";
@@ -37,7 +38,8 @@ function IllustratedMap() {
 export function VenueSection() {
   const { event } = invitation;
   const [mapFailed, setMapFailed] = useState(false);
-  const live = event.showLiveMap && !mapFailed;
+  // Google's embedded map won't load inside a local file (the shareable HTML), so show the drawn card there
+  const live = event.showLiveMap && !mapFailed && window.location.protocol.startsWith("http");
 
   return (
     <section id="venue" className="section venue" aria-labelledby="venue-title">
@@ -50,7 +52,7 @@ export function VenueSection() {
               <Lotus className="venue__lotus" />
               <strong>{event.venue}</strong>
               <span>{event.address}</span>
-              <span>{event.city}</span>
+              <span>{cityLine}</span>
             </address>
             <div className="venue__actions" data-reveal style={d(220)}>
               <a className="btn btn--ghost btn--sm" href={mapsSearchUrl} target="_blank" rel="noopener noreferrer">
@@ -77,7 +79,7 @@ export function VenueSection() {
               <a href={mapsSearchUrl} target="_blank" rel="noopener noreferrer" className="venue-map__link" aria-label={`Open ${event.venue} in Google Maps`}>
                 <IllustratedMap />
                 <span className="venue-map__chip">
-                  {event.venue}
+                  Open in Google Maps
                   <ExternalLink aria-hidden="true" size={13} strokeWidth={1.5} />
                 </span>
               </a>

@@ -1,5 +1,5 @@
 import { invitation } from "../config/invitation";
-import { getDateParts, getDisplayTime } from "../lib/event";
+import { cityLine, getDateParts, getDisplayTime } from "../lib/event";
 import { DecorativeBorder, FloralCorner } from "./decor";
 import { EventActions } from "./EventActions";
 import { SectionHeading } from "./SectionHeading";
@@ -49,7 +49,8 @@ export function EngagementDetails() {
               <span className="date-card__time">{getDisplayTime()}</span>
               <span className="date-card__onwards">onwards</span>
               <span className="date-card__venue">{event.venue}</span>
-              <span className="date-card__city">{event.city}</span>
+              {event.address && <span className="date-card__address">{event.address}</span>}
+              <span className="date-card__city">{cityLine}</span>
             </div>
           </DecorativeBorder>
         </div>

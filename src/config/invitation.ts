@@ -27,7 +27,7 @@ export const invitation = {
   groom: {
     name: "Sahil",
     image: "/images/groom.jpg", // REPLACE
-    parents: "Mr. Mohan Lal & Mrs. Radha Devi",
+    parents: "Mr. Mohan Lal Khatiwal & Mrs. Radha Devi",
     familyName: "Khatiwal Family",
     relation: "Son of",
   },
@@ -38,13 +38,15 @@ export const invitation = {
     time: "10:00", // 24-hour HH:MM, local time at the venue
     timezoneOffset: "+05:30", // India Standard Time; keeps the countdown correct for guests abroad
     durationHours: 4, // used for the calendar entry
-    venue: "Khatiwal Niwas",
+    venue: "Our Residence",
     address: "Village Killianwali",
     city: "Fazilka, Punjab",
+    pincode: "", // REPLACE — 6-digit PIN code, shown after the city
     /** Google Maps link. A link with ?query=… (like this one) also drives directions and the live map.
      *  Leave empty to search Google Maps for venue + address automatically. */
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=30.140444,74.115500",
-    /** Live Google map in the venue section (uses the location above). */
+    /** Live Google map in the venue section when viewed as a website. The shareable HTML file
+     *  always shows the drawn map card instead (Google's map can't load inside a local file). */
     showLiveMap: true,
     description:
       "With the blessings of our families, we warmly invite you to celebrate the engagement ceremony.",

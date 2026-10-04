@@ -8,7 +8,6 @@ const SECTIONS = [
   { id: "details", label: "Details" },
   { id: "gallery", label: "Gallery" },
   { id: "venue", label: "Venue" },
-  { id: "rsvp", label: "RSVP" },
 ];
 
 /** A quiet dot rail on desktop, a single lotus button on mobile. No navbar. */

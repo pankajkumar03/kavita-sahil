@@ -15,8 +15,6 @@ Everything (names, date, venue, links, photos, music) lives in
 | Date & time | `event.date` (`YYYY-MM-DD`), `event.time` (`HH:MM`, 24-hour) |
 | Venue, address, city | `event.venue`, `event.address`, `event.city` |
 | Google Maps link | `event.mapsUrl` (leave empty to search by address); `event.showLiveMap: true` for a live map |
-| WhatsApp number | `contact.whatsapp` — international, digits only, e.g. `919876543210` |
-| RSVP via Google Form instead | `rsvp.mode: "googleForm"` and `rsvp.googleFormUrl` |
 | Music | put the song in `public/music/background.mp3` (or change `music.url`); the button appears once the file is there |
 | Photos | see `public/images/README.md` for file names and sizes |
 | Link preview (WhatsApp) | `site.url` (after deploying) and `public/images/og-cover.jpg` (1200×630) |
@@ -38,7 +36,7 @@ npm run build      # production files in dist/
 Cloudflare Pages (build command `npm run build`, output `dist`). After deploying, put the
 public URL in `site.url` and rebuild so WhatsApp link previews show your cover image.
 
-Tip: sharing `https://your-site/#venue` (or `#details`, `#rsvp`) opens straight to that
+Tip: sharing `https://your-site/#venue` (or `#details`, `#gallery`) opens straight to that
 section, skipping the cover.
 
 ## What works client-side
@@ -47,9 +45,7 @@ section, skipping the cover.
 - Live countdown (timezone-correct via `event.timezoneOffset`)
 - Add to Calendar: Google Calendar link + downloadable `.ics` (Apple / Outlook)
 - View Location / Get Directions (Google Maps)
-- RSVP & blessings forms → pre-filled WhatsApp message (no backend)
 - Gallery: swipe on mobile, masonry on desktop, keyboard + swipe lightbox
-- Share button: native share sheet on phones, copy-link fallback with toast
 - Music starts when the guest taps "Open Invitation" (fades in; `music.autoplayOnOpen`), with a pause/play button; never plays on page load
 - Reduced-motion support, keyboard navigation, screen-reader labels
 
@@ -59,6 +55,6 @@ section, skipping the cover.
 src/config/invitation.ts   ← your details
 src/components/            ← one component per section (Hero, FamilyBlessings, Gallery, …)
 src/components/decor/      ← reusable SVG ornaments
-src/lib/                   ← calendar, maps/WhatsApp links, share helpers
+src/lib/                   ← calendar, maps links, music
 src/index.css              ← colour tokens, typography, all styling
 ```

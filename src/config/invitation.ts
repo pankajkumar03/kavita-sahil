@@ -54,21 +54,6 @@ export const invitation = {
     image: "/images/hero.jpg", // REPLACE — a portrait of the couple (or leave for placeholder)
   },
 
-  contact: {
-    /** WhatsApp number in international format, digits only — e.g. "919876543210".
-     *  Leave empty and WhatsApp will ask guests to choose a contact. */
-    whatsapp: "", // REPLACE
-  },
-
-  rsvp: {
-    /** "whatsapp" — the RSVP form sends a pre-filled WhatsApp message.
-     *  "googleForm" — the RSVP button opens your Google Form instead. */
-    mode: "whatsapp" as "whatsapp" | "googleForm",
-    googleFormUrl: "", // REPLACE if mode is "googleForm"
-    /** Optional — shown under the RSVP heading, e.g. "Kindly respond by 10 November 2026". */
-    respondBy: "",
-  },
-
   music: {
     enabled: true,
     /** Audio file in /public/music (MP3 or M4A). The music button appears once the file exists. */

@@ -10,8 +10,6 @@ import { Gallery } from "./components/Gallery";
 import { HeroSection } from "./components/HeroSection";
 import { InvitationCover } from "./components/InvitationCover";
 import { MusicPlayer } from "./components/MusicPlayer";
-import { RSVPSection } from "./components/RSVPSection";
-import { ShareButton } from "./components/ShareButton";
 import { ToastProvider } from "./components/Toast";
 import { VenueSection } from "./components/VenueSection";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -67,7 +65,6 @@ export default function App() {
         <BlessingSection />
         <Gallery />
         <VenueSection />
-        <RSVPSection />
         <FinalSection />
       </main>
       <Footer />
@@ -77,7 +74,6 @@ export default function App() {
         <>
           <div className="float-controls">
             <MusicPlayer />
-            <ShareButton />
           </div>
           <FloatingNav />
         </>

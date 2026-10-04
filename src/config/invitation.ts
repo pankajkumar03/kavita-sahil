@@ -19,7 +19,7 @@ export const invitation = {
   bride: {
     name: "Kavita",
     image: "/images/bride.jpg", // REPLACE — portrait photo
-    parents: "Mr. Harbans Jhatwal & Mrs. Birma Devi",
+    parents: "Mr. Harbans Kumar Jhatwal & Mrs. Birma Devi",
     familyName: "Jhatwal Family",
     relation: "Daughter of", // shown above the parents' names
   },
@@ -27,8 +27,8 @@ export const invitation = {
   groom: {
     name: "Sahil",
     image: "/images/groom.jpg", // REPLACE
-    parents: "Mr. & Mrs. GROOM'S PARENTS", // REPLACE
-    familyName: "Groom's Family Name", // REPLACE
+    parents: "Mr. Mohan Lal & Mrs. Radha Devi",
+    familyName: "Khatiwal Family",
     relation: "Son of",
   },
 
@@ -38,9 +38,9 @@ export const invitation = {
     time: "10:00", // 24-hour HH:MM, local time at the venue
     timezoneOffset: "+05:30", // India Standard Time; keeps the countdown correct for guests abroad
     durationHours: 4, // used for the calendar entry
-    venue: "VENUE NAME", // REPLACE
-    address: "Full Address Line 1, Full Address Line 2", // REPLACE
-    city: "City, State", // REPLACE
+    venue: "Khatiwal Niwas",
+    address: "Village Killianwali",
+    city: "Fazilka, Punjab",
     /** Google Maps link. A link with ?query=… (like this one) also drives directions and the live map.
      *  Leave empty to search Google Maps for venue + address automatically. */
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=30.140444,74.115500",

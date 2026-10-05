@@ -49,6 +49,7 @@ export function HeroSection() {
             <div className="hero__photo">
               <SmartImage
                 src={hero.image}
+                position={hero.imagePosition}
                 alt={`${bride.name} and ${groom.name}`}
                 label="The couple"
                 priority

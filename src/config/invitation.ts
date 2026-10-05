@@ -53,7 +53,9 @@ export const invitation = {
   },
 
   hero: {
-    image: "/images/hero.jpg", // REPLACE — a portrait of the couple (or leave for placeholder)
+    image: "/images/hero.jpg", // the couple together
+    /** Part of the photo kept in view inside the arch: "50% 0%" keeps the top so heads aren't cut. */
+    imagePosition: "50% 0%",
   },
 
   music: {

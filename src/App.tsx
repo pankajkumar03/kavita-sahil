@@ -50,7 +50,7 @@ export default function App() {
         setPhase("open");
         mainRef.current?.focus({ preventScroll: true });
       },
-      reduced ? 0 : 1250,
+      reduced ? 0 : 1300, // matches the door transition in .cover__door
     );
   };
 

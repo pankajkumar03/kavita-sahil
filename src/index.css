@@ -422,46 +422,113 @@ main:focus {
 }
 
 /* ───────────────────────── Cover ───────────────────────── */
+/* The card is drawn twice, one copy per door, each clipped to its half. On open the two halves
+   swing apart (a folded invitation opening) over a warm glow, revealing the page beneath. */
 .cover {
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: grid;
-  place-items: center;
   height: 100vh;
   height: 100dvh;
-  padding: 14px;
-}
-.cover__panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50.5%;
-  background: var(--paper-noise), var(--ivory);
-  transition: transform 1.15s cubic-bezier(0.7, 0, 0.25, 1) 0.15s;
-  animation: fade-in 0.6s var(--ease) both;
-}
-.cover__panel--left {
-  left: 0;
-}
-.cover__panel--right {
-  right: 0;
-}
-.cover.is-leaving .cover__panel--left {
-  box-shadow: inset -1px 0 0 var(--hair);
-}
-.cover.is-leaving .cover__panel--right {
-  box-shadow: inset 1px 0 0 var(--hair);
-}
-.cover.is-leaving .cover__panel--left {
-  transform: translateX(-101%);
-}
-.cover.is-leaving .cover__panel--right {
-  transform: translateX(101%);
+  overflow: hidden;
+  perspective: 1800px;
 }
 .cover.is-leaving {
   pointer-events: none;
 }
+/* Nothing animates until the fonts are ready (InvitationCover sets .is-ready) */
+.cover:not(.is-ready) *,
+.cover:not(.is-ready) *::before,
+.cover:not(.is-ready) *::after {
+  animation-play-state: paused !important;
+}
+
+.cover__door {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  background: var(--paper-noise), var(--ivory);
+  backface-visibility: hidden;
+  transition:
+    transform 1.2s cubic-bezier(0.65, 0, 0.2, 1) 0.05s,
+    opacity 0.5s var(--ease) 0.75s;
+}
+/* Closed: one whole card (the left door, unclipped) — no seam anywhere.
+   Opening: it splits into two identical halves at the same instant, which then move apart. */
+.cover__door--left {
+  transform-origin: left center;
+}
+.cover__door--right {
+  visibility: hidden;
+  transform-origin: right center;
+}
+.cover.is-leaving .cover__door--left {
+  clip-path: inset(0 50% 0 0);
+}
+.cover.is-leaving .cover__door--right {
+  visibility: visible;
+  clip-path: inset(0 0 0 50%);
+}
+/* Soft shading along the fold edge, visible only while the doors move */
+.cover__door::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 70px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease);
+}
+.cover__door--left::after {
+  left: calc(50% - 70px);
+  background: linear-gradient(90deg, transparent, rgba(87, 24, 36, 0.12));
+}
+.cover__door--right::after {
+  left: 50%;
+  background: linear-gradient(270deg, transparent, rgba(87, 24, 36, 0.12));
+}
+.cover.is-leaving .cover__door::after {
+  opacity: 1;
+}
+.cover.is-leaving .cover__door--left {
+  transform: translateX(-52%) rotateY(32deg);
+  opacity: 0;
+}
+.cover.is-leaving .cover__door--right {
+  transform: translateX(52%) rotateY(-32deg);
+  opacity: 0;
+}
+
+/* Warm light spilling from the seam as the card opens */
+.cover__glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 12% 55% at 50% 50%, rgba(255, 233, 186, 0.95), transparent 70%),
+    radial-gradient(ellipse 45% 70% at 50% 50%, rgba(216, 187, 122, 0.35), transparent 75%);
+}
+.cover.is-leaving .cover__glow {
+  animation: seam-glow 1.25s var(--ease) both;
+}
+@keyframes seam-glow {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.15);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(2.6);
+  }
+}
+
 .cover__card {
   position: relative;
   display: flex;
@@ -472,14 +539,7 @@ main:focus {
   max-height: 920px;
   padding: 40px 22px 112px;
   text-align: center;
-  transition:
-    opacity 0.7s var(--ease),
-    transform 0.9s var(--ease);
-  animation: fade-in 1s var(--ease) 0.15s both;
-}
-.cover.is-leaving .cover__card {
-  opacity: 0;
-  transform: scale(0.97);
+  animation: fade-in 0.9s var(--ease) 0.1s both;
 }
 .cover__floral {
   width: clamp(104px, 30vw, 180px);
@@ -543,44 +603,68 @@ main:focus {
 .cover__open {
   margin-top: 26px;
 }
+/* A gentle pulse once the button has arrived, inviting the tap */
+.cover .cover__open.cover-step {
+  animation:
+    rise 0.95s var(--ease) 2.65s both,
+    invite-pulse 2.6s ease-in-out 3.8s infinite;
+}
+@keyframes invite-pulse {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 0 0 3px var(--maroon),
+      inset 0 0 0 4px rgba(216, 187, 122, 0.9),
+      0 6px 18px -10px rgba(87, 24, 36, 0.6),
+      0 0 0 0 rgba(200, 161, 90, 0.35);
+  }
+  50% {
+    box-shadow:
+      inset 0 0 0 3px var(--maroon),
+      inset 0 0 0 4px rgba(216, 187, 122, 0.9),
+      0 6px 18px -10px rgba(87, 24, 36, 0.6),
+      0 0 0 9px rgba(200, 161, 90, 0);
+  }
+}
 
+/* Arrival sequence: border & florals → mandala draws → invocation → label → names → blessing → button */
 .cover-step {
   opacity: 0;
-  animation: rise 0.95s var(--ease) both;
+  animation: rise 0.9s var(--ease) both;
 }
 .cover-step.s-border {
-  animation: fade-in 1.6s var(--ease) 0.25s both;
+  animation: fade-in 1.4s var(--ease) 0.2s both;
 }
 .cover-step.s-1 {
-  animation-delay: 1.15s;
+  animation-delay: 0.95s;
 }
 .cover-step.s-2 {
-  animation-delay: 1.45s;
+  animation-delay: 1.2s;
 }
 .cover-step.s-3 {
-  animation-delay: 1.8s;
+  animation-delay: 1.5s;
 }
 .cover-step.s-4 {
-  animation-delay: 2.15s;
+  animation-delay: 1.8s;
 }
 .cover-step.s-5 {
-  animation-delay: 2.4s;
+  animation-delay: 2s;
 }
 .cover-step.s-6 {
-  animation-delay: 2.8s;
+  animation-delay: 2.35s;
 }
 .cover-step.s-7 {
-  animation-delay: 3.2s;
+  animation-delay: 2.65s;
 }
 
 .mandala-draw [pathLength] {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: draw 2s var(--ease) 0.45s forwards;
+  animation: draw 1.7s var(--ease) 0.35s forwards;
 }
 .mandala-draw .mandala-dot {
   opacity: 0;
-  animation: fade-in 0.8s var(--ease) 2s forwards;
+  animation: fade-in 0.7s var(--ease) 1.6s forwards;
 }
 
 /* ───────────────────────── Floating UI ───────────────────────── */

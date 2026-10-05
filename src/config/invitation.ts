@@ -79,9 +79,9 @@ export const invitation = {
   site: {
     /** The public address once deployed, e.g. "https://our-engagement.netlify.app".
      *  Used for link previews on WhatsApp and for the share button. */
-    url: "", // REPLACE after deploying
+    url: "https://pankajkumar03.github.io/kavita-sahil/",
     /** 1200×630 JPG/PNG shown when the link is shared on WhatsApp. */
-    ogImage: "/images/og-cover.jpg", // REPLACE
+    ogImage: "/images/og-cover.jpg", // made by `npm run og`
   },
 
   text: {

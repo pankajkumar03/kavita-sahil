@@ -1762,6 +1762,25 @@ html.is-revealed .hero__arch {
   text-overflow: ellipsis;
   color: var(--maroon);
 }
+/* Single column (phones, small tablets): centre the venue details like the rest of the card */
+@media (max-width: 899px) {
+  .venue__info,
+  .venue__info .section-heading--left {
+    align-items: center;
+    text-align: center;
+  }
+  .venue__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .venue__address {
+    align-items: center;
+  }
+  .venue__actions {
+    justify-content: center;
+  }
+}
 @media (min-width: 900px) {
   .venue__layout {
     grid-template-columns: 1fr 1.2fr;

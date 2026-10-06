@@ -6,6 +6,7 @@ import { useToast } from "./Toast";
 /** Add to calendar: Google Calendar link or a downloadable .ics file. */
 export function EventActions() {
   const [open, setOpen] = useState(false);
+  const [up, setUp] = useState(false);
   const menuId = useId();
   const wrapRef = useRef<HTMLDivElement>(null);
   const toast = useToast();
@@ -40,13 +41,18 @@ export function EventActions() {
           aria-haspopup="menu"
           aria-expanded={open}
           aria-controls={menuId}
-          onClick={() => setOpen((o) => !o)}
+          onClick={(e) => {
+            // Open upward if the menu (~120px) wouldn't fit below the button
+            const r = e.currentTarget.getBoundingClientRect();
+            setUp(window.innerHeight - r.bottom < 140);
+            setOpen((o) => !o);
+          }}
         >
           <CalendarPlus aria-hidden="true" size={16} strokeWidth={1.5} />
           <span>Add to Calendar</span>
           <ChevronDown aria-hidden="true" size={14} strokeWidth={1.5} className={`chev ${open ? "is-open" : ""}`} />
         </button>
-        <div id={menuId} role="menu" className={`calendar-menu__list ${open ? "is-open" : ""}`} hidden={!open}>
+        <div id={menuId} role="menu" className={`calendar-menu__list ${open ? "is-open" : ""} ${up ? "is-up" : ""}`} hidden={!open}>
           {gcal && (
             <a role="menuitem" href={gcal} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
               <ExternalLink aria-hidden="true" size={15} strokeWidth={1.4} />

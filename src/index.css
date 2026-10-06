@@ -730,7 +730,10 @@ main:focus {
   animation-delay: 0.6s;
 }
 
-.float-nav {
+/* The fade-in sits on the positioned pieces themselves: on this unpositioned wrapper it would create
+   a stacking context that traps their z-index beneath the page content (menu hidden behind photos). */
+.mini-nav,
+.dot-rail {
   animation: fade-in 0.8s var(--ease) 0.8s both;
 }
 .dot-rail {
@@ -1164,6 +1167,8 @@ html.is-revealed .hero__arch {
 
 /* ───────────────────────── Ceremony ───────────────────────── */
 .ceremony {
+  /* lets the Add to Calendar dropdown extend past the section edge instead of being clipped */
+  overflow: visible;
   background: var(--paper);
   border-block: 1px solid var(--hair-soft);
 }
@@ -1301,6 +1306,11 @@ html.is-revealed .hero__arch {
   background: var(--paper);
   border: 1px solid var(--hair);
   box-shadow: var(--shadow-soft);
+}
+/* Opens upward when there isn't room below the button */
+.calendar-menu__list.is-up {
+  top: auto;
+  bottom: calc(100% + 8px);
 }
 .calendar-menu__list.is-open {
   animation: rise 0.3s var(--ease) both;

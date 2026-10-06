@@ -1411,7 +1411,12 @@ html.is-revealed .hero__arch {
 }
 
 /* ───────────────────────── Blessing ───────────────────────── */
+/* Countdown and blessing read as one passage: don't stack two full section paddings between them */
+.countdown {
+  padding-bottom: clamp(36px, 6vw, 72px);
+}
 .blessing {
+  padding-top: clamp(36px, 6vw, 72px);
   text-align: center;
   background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(243, 225, 221, 0.6), transparent 72%);
 }

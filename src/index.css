@@ -963,13 +963,14 @@ html.is-revealed .hero__arch {
 .hero--card .hero__visual {
   flex: 1;
   display: flex;
-  width: min(100%, 580px);
+  /* grows a little on tall monitors so the arch doesn't look narrow */
+  width: min(100%, max(580px, 60svh));
   padding: 16px 16px 0;
 }
 .hero--card .hero__arch {
   flex: 1;
   aspect-ratio: auto;
-  min-height: 400px;
+  min-height: 0;
 }
 /* Corner flowers hug the arch corners (not pushed off-screen) on the full-height card */
 .hero--card .hero__floral {
@@ -1021,18 +1022,18 @@ html.is-revealed .hero__arch {
 /* Ganesh ji at the top of the card; multiply lets the artwork's white background vanish into the paper */
 .hero-card__emblem {
   display: block;
-  width: min(62%, 280px, calc(24svh * 1.09));
+  width: min(62%, 380px, calc(24svh * 1.09));
   height: auto;
   margin: 0 auto clamp(4px, 1.5vw, 10px);
   mix-blend-mode: multiply;
 }
 .hero-card .hero__deva {
-  font-size: clamp(13px, 3.6vw, 16px);
+  font-size: clamp(13px, min(3.6vw, 1.9svh), 22px);
 }
 .hero-card .hero__names {
   align-items: center;
   margin-top: clamp(10px, 3vw, 18px);
-  font-size: clamp(2.6rem, 12.5vw, 4.6rem);
+  font-size: clamp(2.2rem, min(12.5vw, 8.4svh), 6.2rem);
   line-height: 1;
 }
 .hero-card .hero__names .amp-row {
@@ -1047,13 +1048,13 @@ html.is-revealed .hero__arch {
 }
 .hero-card .hero__ceremony {
   margin-top: clamp(14px, 4vw, 22px);
-  font-size: clamp(10px, 2.8vw, 12px);
+  font-size: clamp(10px, min(2.8vw, 1.35svh), 16px);
   letter-spacing: 0.3em;
 }
 .hero-card .hero__date {
   margin-top: 12px;
   padding-top: 12px;
-  font-size: clamp(1.05rem, 4.4vw, 1.4rem);
+  font-size: clamp(1.05rem, min(4.4vw, 2.6svh), 2rem);
   letter-spacing: 0.08em;
 }
 .hero--card .scroll-cue {
@@ -1069,6 +1070,58 @@ html.is-revealed .hero__arch {
   }
   .hero--card .hero__inner {
     grid-template-columns: none;
+  }
+}
+/* Phones held sideways (short screens): wider arch, names on one line, smaller artwork below the curve */
+@media (orientation: landscape) and (max-height: 540px) {
+  .hero.hero--card {
+    padding: 8px 0 4px;
+  }
+  .hero--card .hero__visual {
+    width: min(100%, 760px);
+    padding: 10px 10px 0;
+  }
+  .hero--card .hero__floral {
+    width: clamp(70px, 14vw, 110px);
+  }
+  .hero--card .hero__branch {
+    display: none; /* would sit on top of the scroll cue on short screens */
+  }
+  .hero-card__text {
+    padding: 13svh 6% 3%;
+  }
+  .hero-card__emblem {
+    width: calc(22svh * 1.09);
+    margin-bottom: 2px;
+  }
+  .hero-card .hero__deva {
+    font-size: 12px;
+  }
+  .hero-card .hero__names {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.3em;
+    margin-top: 4px;
+    font-size: clamp(1.8rem, 10svh, 3rem);
+  }
+  .hero-card .hero__names .amp-row .amp-line {
+    display: none !important;
+  }
+  .hero-card .hero__ceremony {
+    margin-top: 6px;
+    font-size: 10px;
+  }
+  .hero-card .hero__date {
+    margin-top: 6px;
+    padding-top: 6px;
+    font-size: clamp(0.95rem, 5svh, 1.15rem);
+  }
+  .hero--card .scroll-cue {
+    margin-top: 6px;
+    gap: 4px;
+  }
+  .hero--card .scroll-cue__line {
+    height: 18px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

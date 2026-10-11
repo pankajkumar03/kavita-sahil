@@ -57,6 +57,8 @@ export const invitation = {
      *  To use a photo, e.g. "/images/hero.jpg" (and imagePosition "50% 0%" keeps heads in view). */
     image: "",
     imagePosition: "50% 0%",
+    /** Gold line-art shown at the top of the arch card (white background blends away). Empty = none. */
+    emblem: "/images/ganesh.webp",
   },
 
   music: {

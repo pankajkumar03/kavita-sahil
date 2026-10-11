@@ -1,4 +1,5 @@
 import { invitation } from "../config/invitation";
+import { asset } from "../lib/asset";
 import { getDateParts } from "../lib/event";
 import { ArchFrame, FloralCorner, LeafBranch, Mandala, Paisley } from "./decor";
 import { SmartImage } from "./SmartImage";
@@ -102,6 +103,16 @@ export function HeroSection() {
             <div className="hero-card">
               <Mandala className="hero-card__mandala" />
               <div className="hero-card__text">
+                {hero.emblem && (
+                  <img
+                    src={asset(hero.emblem)}
+                    alt="Shri Ganesh"
+                    className="hero-card__emblem"
+                    data-reveal
+                    decoding="async"
+                    onError={(e) => (e.currentTarget.style.display = "none")}
+                  />
+                )}
                 <HeroText />
               </div>
             </div>

@@ -1015,8 +1015,16 @@ html.is-revealed .hero__arch {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 22% 9% 8%;
+  padding: min(18%, 11svh) 9% 6%;
   text-align: center;
+}
+/* Ganesh ji at the top of the card; multiply lets the artwork's white background vanish into the paper */
+.hero-card__emblem {
+  display: block;
+  width: min(62%, 280px, calc(24svh * 1.09));
+  height: auto;
+  margin: 0 auto clamp(4px, 1.5vw, 10px);
+  mix-blend-mode: multiply;
 }
 .hero-card .hero__deva {
   font-size: clamp(13px, 3.6vw, 16px);

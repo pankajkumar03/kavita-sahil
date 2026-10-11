@@ -30,8 +30,11 @@ const time = `${hh % 12 || 12}:${String(mm).padStart(2, "0")} ${hh >= 12 ? "PM" 
 const place = [event.address, event.city.split(",")[0]].filter(Boolean).join(", ");
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
-const photoPath = join(root, "public", hero.image.replace(/^\//, ""));
-const photo = existsSync(photoPath) ? `data:image/jpeg;base64,${readFileSync(photoPath).toString("base64")}` : "";
+const photoPath = hero.image ? join(root, "public", hero.image.replace(/^\//, "")) : "";
+const photo = photoPath && existsSync(photoPath) ? `data:image/jpeg;base64,${readFileSync(photoPath).toString("base64")}` : "";
+// No photo → the K & S monogram, matching the site's hero
+const mandala = `<svg viewBox="0 0 120 120"><g fill="none" stroke="#C8A15A" stroke-width=".7"><circle cx="60" cy="60" r="6"/><circle cx="60" cy="60" r="13"/><circle cx="60" cy="60" r="41"/>${Array.from({ length: 8 }, (_, i) => `<path d="M60 47C65 38 65 29 60 20 55 29 55 38 60 47Z" transform="rotate(${i * 45} 60 60)"/>`).join("")}${Array.from({ length: 16 }, (_, i) => `<path d="M60 19C62.5 15 62.5 11 60 7 57.5 11 57.5 15 60 19Z" transform="rotate(${i * 22.5} 60 60)"/>`).join("")}</g></svg>`;
+const monogram = `<div class="mono"><div class="mono-m">${mandala}</div><div class="mono-l">LOTUS</div><div class="mono-i">${esc(bride.name.charAt(0))}<span>&amp;</span>${esc(groom.name.charAt(0))}</div><i class="mono-r"></i><div class="mono-d">${String(d).padStart(2, "0")} · ${String(m).padStart(2, "0")} · ${y}</div></div>`;
 const focus = hero.imagePosition || "50% 0%";
 const ARCH = "M0 100V36C0 20 16 13 30 10C40 7.5 46 4 50 0C54 4 60 7.5 70 10C84 13 100 20 100 36V100Z";
 const mask = `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><path d='${ARCH}'/></svg>`)}")`;
@@ -54,7 +57,15 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
   .photo{position:absolute;left:96px;top:70px;width:372px;height:490px}
   .photo .line{position:absolute;inset:-12px -12px 0 -12px;width:calc(100% + 24px);height:calc(100% + 12px)}
   .photo .img{position:absolute;inset:0;-webkit-mask:${mask} 0 0/100% 100% no-repeat;mask:${mask} 0 0/100% 100% no-repeat;
-    background:${photo ? `url(${photo}) ${focus}/cover no-repeat` : "#F3E1DD"}}
+    background:${photo ? `url(${photo}) ${focus}/cover no-repeat` : "radial-gradient(ellipse 80% 70% at 50% 48%,#fffdf9,#fbf1ea 45%,#f3e1dd)"}}
+  .mono{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:14%}
+  .mono-m{position:absolute;top:54%;left:50%;width:118%;transform:translate(-50%,-50%);opacity:.32}
+  .mono-m svg{width:100%;display:block}
+  .mono-l{position:relative;margin-bottom:6px}
+  .mono-i{position:relative;font-family:"Cormorant Garamond",serif;font-size:150px;line-height:1;color:#6B1F2A;display:flex;align-items:center;gap:14px}
+  .mono-i span{font-size:.55em;font-style:italic;color:#8A6A2F}
+  .mono-r{position:relative;display:block;width:46%;height:1px;margin:16px 0 14px;background:linear-gradient(90deg,transparent,#C8A15A,transparent)}
+  .mono-d{position:relative;font-size:17px;letter-spacing:.34em;color:#8A6A2F}
   .text{position:absolute;left:520px;right:60px;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
   .deva{font-family:"Noto Serif Devanagari",serif;font-size:24px;color:#6B1F2A;margin-top:6px}
   .label{font-size:16px;letter-spacing:.38em;text-transform:uppercase;color:#8A6A2F;margin:16px 0 4px}
@@ -70,7 +81,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
 <div class="sprig tl">${sprig}</div><div class="sprig br">${sprig}</div>
 <div class="photo">
   <svg class="line" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="${ARCH}" fill="none" stroke="#C8A15A" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
-  <div class="img"></div>
+  <div class="img">${photo ? "" : monogram.replace("LOTUS", lotus)}</div>
 </div>
 <div class="text">
   ${lotus}

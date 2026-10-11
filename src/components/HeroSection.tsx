@@ -1,6 +1,6 @@
 import { invitation } from "../config/invitation";
 import { getDateParts } from "../lib/event";
-import { ArchFrame, FloralCorner, LeafBranch, Paisley } from "./decor";
+import { ArchFrame, FloralCorner, LeafBranch, Lotus, Mandala, Paisley } from "./decor";
 import { SmartImage } from "./SmartImage";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
@@ -46,16 +46,33 @@ export function HeroSection() {
           <Paisley className="hero__paisley hero__paisley--l" />
           <Paisley className="hero__paisley hero__paisley--r" />
           <ArchFrame className="hero__arch">
-            <div className="hero__photo">
-              <SmartImage
-                src={hero.image}
-                position={hero.imagePosition}
-                alt={`${bride.name} and ${groom.name}`}
-                label="The couple"
-                priority
-                sizes="(min-width: 1024px) 460px, 80vw"
-              />
-            </div>
+            {hero.image ? (
+              <div className="hero__photo">
+                <SmartImage
+                  src={hero.image}
+                  position={hero.imagePosition}
+                  alt={`${bride.name} and ${groom.name}`}
+                  label="The couple"
+                  priority
+                  sizes="(min-width: 1024px) 460px, 80vw"
+                />
+              </div>
+            ) : (
+              /* No photo: the couple's initials as a monogram, like the crest on a printed card */
+              <div className="monogram" role="img" aria-label={`${bride.name} and ${groom.name}`}>
+                <Mandala className="monogram__mandala" />
+                <Lotus className="monogram__lotus" filled />
+                <span className="monogram__initials" aria-hidden="true">
+                  <span>{bride.name.trim().charAt(0)}</span>
+                  <span className="monogram__amp">&amp;</span>
+                  <span>{groom.name.trim().charAt(0)}</span>
+                </span>
+                <span className="monogram__rule" aria-hidden="true" />
+                <span className="monogram__date" aria-hidden="true">
+                  {date.dayNumber.padStart(2, "0")} · {String(Number(event.date.split("-")[1])).padStart(2, "0")} · {date.year}
+                </span>
+              </div>
+            )}
           </ArchFrame>
           <LeafBranch className="hero__branch" />
         </div>

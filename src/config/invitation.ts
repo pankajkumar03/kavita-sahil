@@ -53,8 +53,9 @@ export const invitation = {
   },
 
   hero: {
-    image: "/images/hero.jpg", // the couple together
-    /** Part of the photo kept in view inside the arch: "50% 0%" keeps the top so heads aren't cut. */
+    /** Optional photo for the big arch at the top. Empty = a K & S monogram with a gold mandala instead.
+     *  To use a photo, e.g. "/images/hero.jpg" (and imagePosition "50% 0%" keeps heads in view). */
+    image: "",
     imagePosition: "50% 0%",
   },
 
